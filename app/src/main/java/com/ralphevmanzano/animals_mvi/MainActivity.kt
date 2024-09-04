@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.ralphevmanzano.animals_mvi.api.AnimalService
 import com.ralphevmanzano.animals_mvi.model.Animal
@@ -62,7 +63,6 @@ class MainActivity : FragmentActivity() {
             }
         }
 
-        enableEdgeToEdge()
         setContent {
             AnimalsMVITheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
@@ -121,10 +121,9 @@ fun AnimalItem(animal: Animal) {
             .fillMaxWidth()
             .height(100.dp)
     ) {
-        val url = AnimalService.BASE_URL + animal.image + animal.image
-        val painter = rememberAsyncImagePainter(url)
-        Image (
-            painter = painter,
+        val url = AnimalService.BASE_URL + animal.image
+        AsyncImage (
+            model = url,
             contentDescription = animal.name,
             modifier = Modifier.size(100.dp),
             contentScale = ContentScale.FillHeight,
